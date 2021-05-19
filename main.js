@@ -21,34 +21,20 @@ function onAdd() {
 
 }
 
+let id = 0; //글로벌 숫자보다는 UUID로 사용하는것이 좋음
 function createItem(text) {
     const itemRow = document.createElement('li');
     itemRow.setAttribute('class', 'item_row');
-
-    const item = document.createElement('div');
-    item.setAttribute('class', 'item');
-
-    const name = document.createElement('span');
-    name.setAttribute('class', 'item_name');
-    //인풋의 Value를 가져와서 name안에 적용.
-    name.innerText = text;
-
-    const deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'item_delete');
-    deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-    //이벤트 리스너로 items를 삭제.
-    deleteBtn.addEventListener('click', () => {
-        items.removeChild(itemRow);
-    });
-
-    const itemDivider = document.createElement('div');
-    itemDivider.setAttribute('class', 'item_divider');
-
-    item.appendChild(name);
-    item.appendChild(deleteBtn);
-    
-    itemRow.appendChild(item);
-    itemRow.appendChild(itemDivider);
+    itemRow.setAttribute('data-id', id);
+    itemRow.innerHTML = `
+                <div class="item">
+                    <span class="item_name">${text}</span>
+                    <button class="item_delete">
+                    <i class="fas fa-trash-alt" data-id=${id}></i>
+                    </button>
+                </div>
+                <div class="item_divider"></div>`;
+    id++;
     return itemRow;
 }
 
@@ -61,5 +47,13 @@ addBtn.addEventListener('click', () => {
 input.addEventListener('keypress', (event) => {
     if (event.key === 'Enter') {
         onAdd();
+    }
+});
+
+items.addEventListener('click', event => {
+    const id = event.target.dataset.id;
+    if (id) {
+        const toBeDeleted = document.querySelector(`.item_row[data-id="${id}"]`);
+        toBeDeleted.remove();
     }
 });
