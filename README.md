@@ -2,6 +2,8 @@
 
 https://song-shopping-list.netlify.app
 
+![shopping](https://user-images.githubusercontent.com/81962246/121546355-31629d80-ca46-11eb-855f-973207368af5.gif)
+
 
 ## 소개
 - 쇼핑 리스트를 추가할 수 있는 간단한 앱입니다.
